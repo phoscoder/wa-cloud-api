@@ -1,6 +1,6 @@
 <samp>
 
-# [Wa Cloud API](https://pypi.org/project/heyoo/)
+# [Whatsapp Cloud API](https://pypi.org/project/heyoo/)
 
 [![Ported in Zimbabwe🇿🇼](https://img.shields.io/badge/ported%20in-zimbabwe%20%F0%9F%87%BF%F0%9F%87%BC-blue)](https://github.com/JS-Hub-ZW)
 ![NPM](https://img.shields.io/npm/l/heyooh)
