@@ -17,7 +17,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@phoscoder/whatsapp-cloud-api": "^1.2.7",
+    "@phoscoder/whatsapp-cloud-api": "^1.3.0",
     "dotenv": "^16.4.7"
   }
 }

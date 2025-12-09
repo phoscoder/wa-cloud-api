@@ -27,7 +27,7 @@ export type DocumentMessage = {
   recipient_type?: string;
   to: string;
   type: "document";
-  document: { link: string, caption: string | null } | { id: string, caption: string | null };
+  document: { link: string, caption: string | null, filename: string } | { id: string, caption: string | null, filename: string };
 };
 
 export type LocationMessage = {

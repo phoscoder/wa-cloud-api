@@ -173,6 +173,7 @@ export default class WhatsApp {
   async sendDocument(
     document: any,
     recipient_id: any,
+    filename: string = "document",
     caption = null,
     link = true,
   ) {
@@ -182,14 +183,14 @@ export default class WhatsApp {
         messaging_product: "whatsapp",
         to: recipient_id,
         type: "document",
-        document: { link: document, caption: caption },
+        document: { link: document, caption: caption, filename: string },
       };
     } else {
       data = {
         messaging_product: "whatsapp",
         to: recipient_id,
         type: "document",
-        document: { id: document, caption: caption },
+        document: { id: document, caption: caption, filename: string },
       };
     }
 

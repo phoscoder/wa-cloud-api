@@ -58,7 +58,7 @@ async function sendVideo() {
 async function sendDocument() {
   try {
     const response = await messenger.sendDocument(
-      "http://www.africau.edu/images/default/sample.pdf",
+      "https://ontheline.trincoll.edu/images/bookdown/sample-local-pdf.pdf",
       RECIPIENT,
     );
     console.log("Document sent successfully:", response);
@@ -134,10 +134,10 @@ async function sendTemplate() {
 
   // await sendTextMessage();
   // await sendImage();
-  // await sendVideo();
-  // await sendDocument();
+  await sendVideo();
+  await sendDocument();
   // await sendLocation();
-  await sendButton();
+  // await sendButton();
   // await sendTemplate();
 })();
 
