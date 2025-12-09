@@ -1,0 +1,23 @@
+{
+  "name": "whatsapp-cloud-api-examples",
+  "version": "1.0.0",
+  "description": "Examples for using @phoscoder/whatsapp-cloud-api",
+  "main": "basic-usage.js",
+  "scripts": {
+    "start": "node basic-usage.js",
+    "webhook": "node webhook-example.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "whatsapp",
+    "whatsapp-cloud-api",
+    "examples"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@phoscoder/whatsapp-cloud-api": "^1.2.5",
+    "dotenv": "^16.4.7"
+  }
+}
