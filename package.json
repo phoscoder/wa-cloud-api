@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "ts-node-dev --exit-child src/hook.ts",
     "start": "ts-node src/hook.ts",
+    "publish": "tsc && npm publish --access=public",
     "build": "tsc",
     "test": "jest"
   },

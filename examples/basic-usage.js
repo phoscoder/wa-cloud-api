@@ -122,8 +122,8 @@ async function sendTemplate() {
 (async () => {
   console.log('WhatsApp Cloud API Examples\n');
   
-  await sendTextMessage();
-  // await sendImage();
+  // await sendTextMessage();
+  await sendImage();
   // await sendVideo();
   // await sendDocument();
   // await sendLocation();
