@@ -101,7 +101,7 @@ const PHONE_NUMBER_ID = process.env.PHONE_NUMBER_ID;
 
 4. **Rate Limits:** Be aware of WhatsApp Cloud API rate limits. Check the [official documentation](https://developers.facebook.com/docs/whatsapp/cloud-api) for details.
 
-5. **Media Download:** Media URLs from `get_media()` are only valid for 5 minutes. Download and store them immediately if needed.
+5. **Media Download:** Media URLs from `getMedia()` are only valid for 5 minutes. Download and store them immediately if needed.
 
 ## Resources
 
