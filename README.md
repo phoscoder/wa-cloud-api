@@ -1,21 +1,21 @@
 
-# [Whatsapp Cloud API](https://pypi.org/project/heyoo/)
+# [Whatsapp Cloud API](https://npmjs.com/package/@phoscoder/whatsapp-cloud-api)
 
-[![Ported in Zimbabwe🇿🇼](https://img.shields.io/badge/ported%20in-zimbabwe%20%F0%9F%87%BF%F0%9F%87%BC-blue)](https://github.com/JS-Hub-ZW)
-![NPM](https://img.shields.io/npm/l/heyooh)
-![npm](https://img.shields.io/npm/v/heyooh)
-![npm](https://img.shields.io/npm/dw/heyooh)
+[![Made in Zimbabwe🇿🇼](https://img.shields.io/badge/ported%20in-zimbabwe%20%F0%9F%87%BF%F0%9F%87%BC-blue)](https://github.com/phoscoder)
+![NPM](https://img.shields.io/npm/l/@phoscoder/whatsapp-cloud-api)
+![npm](https://img.shields.io/npm/v/@phoscoder/whatsapp-cloud-api)
+![npm](https://img.shields.io/npm/dw/@phoscoder/whatsapp-cloud-api)
 
 
-Unofficial javascript wrapper to [WhatsApp Cloud API](https://developers.facebook.com/docs/whatsapp/cloud-api). Its the javascript port for [heyoo](https://github.com/Neurotech-HQ/heyoo)
+Unofficial javascript wrapper to [WhatsApp Cloud API](https://developers.facebook.com/docs/whatsapp/cloud-api). It was first ported from [heyoo](https://github.com/Neurotech-HQ/heyoo) but now I will be maintaining it and adding more features.
 
 ## Features supported
 
-1. Sending messages
-2. Sending  Media (images, audio, video and ducuments)
-3. Sending location
-4. Sending interactive buttons
-5. Sending template messages
+✅ Sending messages  <br>
+✅ Sending  Media (images, audio, video and documents) <br>
+✅ Sending location <br>
+✅ Sending interactive buttons <br>
+✅ Sending template messages <br>
 
 ## Getting started
 
