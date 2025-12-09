@@ -19,14 +19,14 @@ Unofficial javascript wrapper to [WhatsApp Cloud API](https://developers.faceboo
 
 ## Getting started
 
-To get started with **wa-cloud-api**, you have to firstly install the libary either directly or using *npm*.
+To get started with **whatsapp-cloud-api**, you have to firstly install the libary either directly or using *npm*.
 
 ### Installing from npm
 
 ```bash
 # For Windows, Linux & Mac
 
-npm install wa-cloud-api
+npm install @phoscoder/whatsapp-cloud-api
 ```
 
 ## Setting up
@@ -51,7 +51,7 @@ Once you're follow the above procedures, now you're ready to start hacking with 
 Here how you authenticate your application, you need to specofy two things the ```TOKEN``` and ```phone_number_id``` of your test number
 
 ```javascript
-import {WhatsApp} from 'wa-cloud-api'
+import {WhatsApp} from '@phoscoder/whatsapp-cloud-api'
 let messenger = new WhatsApp('TOKEN',  phone_number_id='104xxxxxx')
 ```
 
@@ -62,7 +62,7 @@ Once you have authenticated your app, now you can start using the above mentione
 Here how to send messages;
 
 ```javscript
-messenger.send_message('Your message ', 'Mobile eg: 255757xxxxx')
+messenger.sendMessage('Your message ', 'Mobile eg: 255757xxxxx')
 ```
 
 ### Example
@@ -70,7 +70,7 @@ messenger.send_message('Your message ', 'Mobile eg: 255757xxxxx')
 Here an example
 
 ```javascript
-messenger.send_message('Hi there just testiing', '255757902132')
+messenger.sendMessage('Hi there just testiing', '255757902132')
 ```
 
 ## Sending Images
@@ -82,7 +82,7 @@ By default all media methods assume you're sending link containing media but you
 Here an example;
 
 ```javascript
-messenger.send_image(
+messenger.sendImage(
         image="https://i.imgur.com/Fh7XVYY.jpeg",
         recipient_id="255757xxxxxx",
 )
@@ -94,7 +94,7 @@ Here an example;
 
 ```javascript
 
-messenger.send_video(
+messenger.sendVideo(
         video="https://www.youtube.com/watch?v=K4TOrB7at0Y",
         recipient_id="255757xxxxxx",
 )
@@ -105,7 +105,7 @@ messenger.send_video(
 Here an example;
 
 ```javascript
-messenger.send_audio(
+messenger.sendAudio(
         audio="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
         recipient_id="255757xxxxxx",
 )
@@ -116,7 +116,7 @@ messenger.send_audio(
 Here an example;
 
 ```javascript
-messenger.send_document(
+messenger.sendDocument(
         document="http://www.africau.edu/images/default/sample.pdf",
         recipient_id="255757xxxxxx",
 )
@@ -127,7 +127,7 @@ messenger.send_document(
 Here an example;
 
 ```javascript
-messenger.send_location(
+messenger.sendLocation(
         lat=1.29,
         long=103.85,
         name="Singapore",
@@ -141,7 +141,7 @@ messenger.send_location(
 Here an example;
 
 ```javascript
-messenger.send_button(
+messenger.sendButton(
         recipient_id="255757xxxxxx",
         button={
             "header": "Header Testing",
@@ -172,7 +172,7 @@ messenger.send_button(
 Here how to send a pre-approved template message;
 
 ```javascript
-messenger.send_template("hello_world", "255757xxxxxx")
+messenger.sendTemplate("hello_world", "255757xxxxxx")
 ```
 
 ## Sending a Template Messages with Components
@@ -183,7 +183,7 @@ let components = [
   // Your components here
 ]
 
-messenger.send_template("hello_world", "255757xxxxxx", components)
+messenger.sendTemplate("hello_world", "255757xxxxxx", components)
 ```
 
 For moreabout components: https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-message-templates
@@ -284,7 +284,7 @@ To retrive actual media link
 
 ```javascript
 let message = processedPayload.get_messages()[0]
-let mediaData = await messenger.get_media(message.image.id)
+let mediaData = await messenger.getMedia(message.image.id)
 ```
 
 **NOTE:** The URL you get is only available for a 5 minutes, so you may need to download it and store it somewhere, or use it as quick as possible
