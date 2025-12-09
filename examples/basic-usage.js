@@ -1,11 +1,14 @@
 // Import the WhatsApp Cloud API package
 const { WhatsApp } = require('@phoscoder/whatsapp-cloud-api');
+import { config } from 'dotenv';
+config();
 
 // Set up your credentials
 // Replace these with your actual values from Facebook Developer Portal
-const TOKEN = 'EAAhsM6uyF28BQLOSkzyi3H7Ct25PiMZAENJbVrZAxFFvOpZB6EKyl8Klq1ZBpCvb3VPtS1qqsv5QLdp2O0ZCs0nG24bhgECI7QToZB3iZAZAz1wSylzcBkh000QJGNcat7DDj4KiqUpz1TbiwzUlYMiD8NtjQJ7gZB4ZA10YZBWZAaSPPCr8R2rGofaWw2VruT9ldFYXhHRl5HUWXNZCUIk8bpiaef1lZBnqA5JaXMqEhixJWL6ZCOtjxsLUKsYN4cPP7nazEHzE8zLLbCxwhC17FGe3Qkhl1HPZCyAZD';
-const PHONE_NUMBER_ID = '101404072591160';
-const RECIPIENT = '263778548832'; // e.g., '255757902132'
+// e.g., '255757902132'
+const TOKEN = process.env.TOKEN;
+const PHONE_NUMBER_ID = process.env.PHONE_NUMBER_ID;
+const RECIPIENT = process.env.RECIPIENT;
 
 // Initialize the WhatsApp messenger
 const messenger = new WhatsApp(TOKEN, PHONE_NUMBER_ID);
