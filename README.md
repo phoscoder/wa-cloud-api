@@ -19,14 +19,14 @@ Unofficial javascript wrapper to [WhatsApp Cloud API](https://developers.faceboo
 
 ## Getting started
 
-To get started with **wa-cloud-api**, you have to firstly install the libary either directly or using *npm*.
+To get started with **whatsapp-cloud-api**, you have to firstly install the libary either directly or using *npm*.
 
 ### Installing from npm
 
 ```bash
 # For Windows, Linux & Mac
 
-npm install wa-cloud-api
+npm install @phoscoder/whatsapp-cloud-api
 ```
 
 ## Setting up
@@ -51,7 +51,7 @@ Once you're follow the above procedures, now you're ready to start hacking with 
 Here how you authenticate your application, you need to specofy two things the ```TOKEN``` and ```phone_number_id``` of your test number
 
 ```javascript
-import {WhatsApp} from 'wa-cloud-api'
+import {WhatsApp} from '@phoscoder/whatsapp-cloud-api'
 let messenger = new WhatsApp('TOKEN',  phone_number_id='104xxxxxx')
 ```
 
