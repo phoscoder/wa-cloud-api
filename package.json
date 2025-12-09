@@ -1,6 +1,6 @@
 {
   "name": "@phoscoder/whatsapp-cloud-api",
-  "version": "1.2.7",
+  "version": "1.3.0",
   "description": "wa-cloud-api is a javascript port of heyoo(made in python). heyoo is a python wrapper for the Whatsapp Cloud API",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "ts-node-dev --exit-child src/hook.ts",
     "start": "ts-node src/hook.ts",
-    "publish": "tsc && npm publish --access=public",
+    "publish": "npm publish --access=public",
     "build": "tsc",
     "test": "jest"
   },
