@@ -1,6 +1,12 @@
 import axios from "axios";
+import { AudioMessage, DocumentMessage, ImageMessage, VideoMessage } from "../types/general";
 
 const VERSION = "v24.0";
+
+
+
+
+
 
 export default class WhatsApp {
   phone_number_id: string;
@@ -40,7 +46,7 @@ export default class WhatsApp {
   }
 
   async sendTemplate(
-    template: any,
+    template: string,
     recipient_id: string,
     components: any[] = [],
     lang: string = "en_US",
@@ -62,11 +68,11 @@ export default class WhatsApp {
   }
 
   async sendLocation(
-    lat: any,
-    long: any,
-    name: any,
-    address: any,
-    recipient_id: any,
+    lat: number,
+    long: number,
+    name: string,
+    address: string,
+    recipient_id: string,
   ) {
     let data = {
       messaging_product: "whatsapp",
@@ -87,12 +93,12 @@ export default class WhatsApp {
 
   async sendImage(
     image: any,
-    recipient_id: any,
+    recipient_id: string,
     recipient_type = "individual",
-    caption = null,
-    link = true,
+    caption: string | null = null,
+    link: boolean = true,
   ) {
-    let data;
+    let data: ImageMessage;
     if (link) {
       data = {
         messaging_product: "whatsapp",
@@ -118,7 +124,7 @@ export default class WhatsApp {
   }
 
   async sendAudio(audio: any, recipient_id: any, link = true) {
-    let data;
+    let data: AudioMessage;
     if (link) {
       data = {
         messaging_product: "whatsapp",
@@ -142,7 +148,7 @@ export default class WhatsApp {
   }
 
   async sendVideo(video: any, recipient_id: any, caption = null, link = true) {
-    let data;
+    let data:VideoMessage;
     if (link) {
       data = {
         messaging_product: "whatsapp",
@@ -170,7 +176,7 @@ export default class WhatsApp {
     caption = null,
     link = true,
   ) {
-    let data;
+    let data:DocumentMessage;
     if (link) {
       data = {
         messaging_product: "whatsapp",
@@ -193,7 +199,7 @@ export default class WhatsApp {
     return r;
   }
 
-  createButton(button: { get: (arg0: string) => any }) {
+  createButton(button: Record<string, any>) {
     // TODO: Investigate
     return {
       type: "list",
@@ -204,7 +210,7 @@ export default class WhatsApp {
     };
   }
 
-  async sendButton(button: any, recipient_id: any) {
+  async sendButton(button: Record<string, any>, recipient_id: string) {
     let data = {
       messaging_product: "whatsapp",
       to: recipient_id,
