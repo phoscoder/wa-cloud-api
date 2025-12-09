@@ -1,4 +1,3 @@
-<samp>
 
 # [Whatsapp Cloud API](https://pypi.org/project/heyoo/)
 
