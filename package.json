@@ -1,7 +1,7 @@
 {
-  "name": "heyooh",
+  "name": "@phoscoder/whatsapp-cloud-api",
   "version": "1.2.3",
-  "description": "heyooh is a javascript port of heyoo(made in python). heyoo is a python wrapper for the Whatsapp Cloud API",
+  "description": "wa-cloud-api is a javascript port of heyoo(made in python). heyoo is a python wrapper for the Whatsapp Cloud API",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "prepublish": "tsc",
