@@ -1,6 +1,6 @@
 {
   "name": "@phoscoder/whatsapp-cloud-api",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "wa-cloud-api is a javascript port of heyoo(made in python). heyoo is a python wrapper for the Whatsapp Cloud API",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -35,5 +35,14 @@
     "body-parser": "^1.20.0",
     "dotenv": "^16.0.1",
     "express": "^4.18.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phoscoder/wa-cloud-api.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/phoscoder/wa-cloud-api/issues"
+  },
+  "homepage": "https://github.com/phoscoder/wa-cloud-api#readme"
 }

@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const VERSION = "v24.0";
+
 export default class WhatsApp{
     phone_number_id: string
     token: string
@@ -9,7 +11,7 @@ export default class WhatsApp{
     constructor(token:string = "", phone_number_id: string = ""){
         this.token = token 
         this.phone_number_id = phone_number_id
-        this.url = `https://graph.facebook.com/v13.0/${phone_number_id}/messages`
+        this.url = `https://graph.facebook.com/${VERSION}/${phone_number_id}/messages`
         this.headers = {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
@@ -201,7 +203,7 @@ export default class WhatsApp{
     }
 
     async get_media(id: string | number){
-       let media_url = `https://graph.facebook.com/v13.0/${id}`
+       let media_url = `https://graph.facebook.com/${VERSION}/${id}`
 
        let r = await axios.get(media_url, {
            headers: this.headers
@@ -211,7 +213,7 @@ export default class WhatsApp{
     }
 
     async delete_media(id: string | number){
-       let media_url = `https://graph.facebook.com/v13.0/${id}`
+       let media_url = `https://graph.facebook.com/${VERSION}/${id}`
 
        let r = await axios.delete(media_url, {
            headers: this.headers
