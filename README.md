@@ -1,6 +1,6 @@
 <samp>
 
-# [heyooh](https://pypi.org/project/heyoo/)
+# [Wa Cloud API](https://pypi.org/project/heyoo/)
 
 [![Ported in Zimbabwe🇿🇼](https://img.shields.io/badge/ported%20in-zimbabwe%20%F0%9F%87%BF%F0%9F%87%BC-blue)](https://github.com/JS-Hub-ZW)
 ![NPM](https://img.shields.io/npm/l/heyooh)
@@ -20,23 +20,14 @@ Unofficial javascript wrapper to [WhatsApp Cloud API](https://developers.faceboo
 
 ## Getting started
 
-To get started with **heyooh**, you have to firstly install the libary either directly or using *npm*.
-
-### Installation directly
-
-Use git to clone or you can also manually download the project repository just as shown below;
-
-```bash
-$ git clone https://github.com/JS-Hub-ZW/heyooh
-$ cd heyooh
-```
+To get started with **wa-cloud-api**, you have to firstly install the libary either directly or using *npm*.
 
 ### Installing from npm
 
 ```bash
 # For Windows, Linux & Mac
 
-npm install heyooh
+npm install wa-cloud-api
 ```
 
 ## Setting up
@@ -61,7 +52,7 @@ Once you're follow the above procedures, now you're ready to start hacking with 
 Here how you authenticate your application, you need to specofy two things the ```TOKEN``` and ```phone_number_id``` of your test number
 
 ```javascript
-import {WhatsApp} from 'heyooh'
+import {WhatsApp} from 'wa-cloud-api'
 let messenger = new WhatsApp('TOKEN',  phone_number_id='104xxxxxx')
 ```
 
