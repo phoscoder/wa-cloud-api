@@ -242,8 +242,8 @@ This is the structure of the notifications that you will recieve from Whatsapp w
 
 
 
-### Recieving notifications
-To receive notifications such as customer messages, alerts and other callbacks from WhatsApp
+### Recieving notifications (Method #1)
+To receive notifications such as customer messages, alerts and other callbacks from WhatsApp you can start a server that listens and handles notifications from Whatsapp
 
 ```javascript
 import Server from './classes/server'
@@ -277,6 +277,29 @@ import handleNotifications from 'path/to/file'
 
 let app = notificationServer.start(handleNotifications)
 ```
+### Recieving notifications (Method #2 > Existing server)
+To receive notifications such as customer messages, alerts and other callbacks from WhatsApp on an existing server, take the following steps
+
+```javascript
+import Server from './classes/server'
+
+
+  app.post("/", async (req: Request, res:Response) => {
+      let data: NotificationPayload = req.body
+  
+      let processedPayload = new ProcessPayload(data)
+      let resp = await notificationCallback(data, payload)
+      
+      // Do your stuff here
+      let messages = processedPayload.getMessages()
+      let metadata = processedPayload.getContacts()
+      let contacts = processedPayload.getContacts()
+      let status = processedPayload.getStatuses()
+
+      return res.json("Notification recieved!")
+  })
+```
+
 
 ### Getting media links 
 
