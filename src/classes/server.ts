@@ -14,7 +14,7 @@ class Server {
         this.verifyToken = verifyToken
     }
 
-    start(notificationCallback: (arg0: NotificationPayload, arg1: ProcessPayload) => Promise<any>){
+    start(notificationCallback: (rawData: NotificationPayload, processedPayload: ProcessPayload) => Promise<any>){
         const app = express()
         // Middleware 
         app.use(bodyParser.urlencoded({ extended: false}))
