@@ -1,5 +1,5 @@
 // Import the WhatsApp Cloud API package
-const { WhatsApp } = require("@phoscoder/whatsapp-cloud-api");
+const { WhatsApp, Server } = require("@phoscoder/whatsapp-cloud-api");
 const { config } = require("dotenv");
 config();
 
@@ -134,20 +134,31 @@ async function sendTemplate() {
 
   // await sendTextMessage();
   // await sendImage();
-  await sendVideo();
-  await sendDocument();
+  // await sendVideo();
+  // await sendDocument();
   // await sendLocation();
   // await sendButton();
   // await sendTemplate();
 })();
 
-// Export functions for use in other files
-module.exports = {
-  sendTextMessage,
-  sendImage,
-  sendVideo,
-  sendDocument,
-  sendLocation,
-  sendButton,
-  sendTemplate,
-};
+let notificationServer = new Server(
+    process.env.VERIFY_TOKEN,
+    6000
+)
+
+let app = notificationServer.start(async (rawData ,processedPayload) => {
+  // Do your stuff here
+  // let messages = processedPayload.getMessages()
+  // let metadata = processedPayload.getContacts()
+  // let contacts = processedPayload.getContacts()
+  // let status = processedPayload.getStatuses()
+  
+   console.log("processedPayload Type: ", processedPayload.type)
+  console.log("processedPayload: ", JSON.stringify(rawData))
+  console.log("contacts ", processedPayload.getContacts())
+  
+  
+  console.log(processedPayload.type == "messages" ? processedPayload.getMessages() : processedPayload.getStatuses())
+
+  // Do other stuff here
+})
