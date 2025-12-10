@@ -256,10 +256,10 @@ let notificationServer = new Server(
 
 let app = notificationsServer.start(async (rawData ,processedPayload) => {
   // Do your stuff here
-  let messages = processedPayload.get_messages()
-  let metadata = processedPayload.get_contacts()
-  let contacts = processedPayload.get_contacts()
-  let status = processedPayload.get_statuses()
+  let messages = processedPayload.getMessages()
+  let metadata = processedPayload.getContacts()
+  let contacts = processedPayload.getContacts()
+  let status = processedPayload.getStatuses()
 
   // Do other stuff here
 })
@@ -283,7 +283,7 @@ let app = notificationServer.start(handleNotifications)
 To retrive actual media link
 
 ```javascript
-let message = processedPayload.get_messages()[0]
+let message = processedPayload.getMessages()[0]
 let mediaData = await messenger.getMedia(message.image.id)
 ```
 
