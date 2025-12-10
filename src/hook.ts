@@ -16,7 +16,7 @@ let app = notificationServer.start(async (rawData, processedPayload) => {
 
 
     if (processedPayload.type == "messages"){
-        let messages = processedPayload.get_messages()
+        let messages = processedPayload.getMessages()
 
         for (const message of messages){
             if (message.type == "text"){

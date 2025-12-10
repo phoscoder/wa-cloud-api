@@ -1,5 +1,5 @@
 
-# [Whatsapp Cloud API](https://npmjs.com/package/@phoscoder/whatsapp-cloud-api)
+# <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="30" height="30"> [Whatsapp Cloud API](https://npmjs.com/package/@phoscoder/whatsapp-cloud-api)
 
 [![Made in Zimbabwe🇿🇼](https://img.shields.io/badge/ported%20in-zimbabwe%20%F0%9F%87%BF%F0%9F%87%BC-blue)](https://github.com/phoscoder)
 ![NPM](https://img.shields.io/npm/l/@phoscoder/whatsapp-cloud-api)
@@ -7,7 +7,7 @@
 ![npm](https://img.shields.io/npm/dw/@phoscoder/whatsapp-cloud-api)
 
 
-Unofficial javascript wrapper to [WhatsApp Cloud API](https://developers.facebook.com/docs/whatsapp/cloud-api). It was first ported from [heyoo](https://github.com/Neurotech-HQ/heyoo) but now I will be maintaining it and adding more features.
+Unofficial Javascript wrapper to [WhatsApp Cloud API](https://developers.facebook.com/docs/whatsapp/cloud-api). It was first ported from [heyoo](https://github.com/Neurotech-HQ/heyoo) but now I will be maintaining it and adding more features.
 
 ## Features supported
 
@@ -62,7 +62,7 @@ Once you have authenticated your app, now you can start using the above mentione
 Here how to send messages;
 
 ```javscript
-messenger.sendMessage('Your message ', 'Mobile eg: 255757xxxxx')
+messenger.sendMessage('Your message ', 'Mobile eg: 263757xxxxx')
 ```
 
 ### Example
@@ -70,7 +70,7 @@ messenger.sendMessage('Your message ', 'Mobile eg: 255757xxxxx')
 Here an example
 
 ```javascript
-messenger.sendMessage('Hi there just testiing', '255757902132')
+messenger.sendMessage('Hi there just testiing', '263757902132')
 ```
 
 ## Sending Images
@@ -83,8 +83,8 @@ Here an example;
 
 ```javascript
 messenger.sendImage(
-        image="https://i.imgur.com/Fh7XVYY.jpeg",
-        recipient_id="255757xxxxxx",
+        "https://i.imgur.com/Fh7XVYY.jpeg",
+        "263757xxxxxx",
 )
 ```
 
@@ -95,8 +95,8 @@ Here an example;
 ```javascript
 
 messenger.sendVideo(
-        video="https://www.youtube.com/watch?v=K4TOrB7at0Y",
-        recipient_id="255757xxxxxx",
+        "https://www.youtube.com/watch?v=K4TOrB7at0Y",
+        "263757xxxxxx",
 )
 ```
 
@@ -106,8 +106,8 @@ Here an example;
 
 ```javascript
 messenger.sendAudio(
-        audio="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-        recipient_id="255757xxxxxx",
+        "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+        "263757xxxxxx",
 )
 ```
 
@@ -117,8 +117,10 @@ Here an example;
 
 ```javascript
 messenger.sendDocument(
-        document="http://www.africau.edu/images/default/sample.pdf",
-        recipient_id="255757xxxxxx",
+        "http://www.africau.edu/images/default/sample.pdf",
+        "263757xxxxxx",      // Recipient ID
+        "sample.pdf",        // File Name
+        "Sample Document"    // Caption
 )
 ```
 
@@ -132,7 +134,7 @@ messenger.sendLocation(
         long=103.85,
         name="Singapore",
         address="Singapore",
-        recipient_id="255757xxxxxx",
+        recipient_id="263757xxxxxx",
     )
 ```
 
@@ -141,29 +143,32 @@ messenger.sendLocation(
 Here an example;
 
 ```javascript
-messenger.sendButton(
-        recipient_id="255757xxxxxx",
-        button={
-            "header": "Header Testing",
-            "body": "Body Testing",
-            "footer": "Footer Testing",
-            "action": {
-                "button": "Button Testing",
-                "sections": [
+
+const button = {
+    "header": "Header Testing",
+    "body": "Body Testing",
+    "footer": "Footer Testing",
+    "action": {
+        "button": "Button Testing",
+        "sections": [
+            {
+                "title": "iBank",
+                "rows": [
+                    {"id": "row 1", "title": "Send Money", "description": ""},
                     {
-                        "title": "iBank",
-                        "rows": [
-                            {"id": "row 1", "title": "Send Money", "description": ""},
-                            {
-                                "id": "row 2",
-                                "title": "Withdraw money",
-                                "description": "",
-                            },
-                        ],
-                    }
+                        "id": "row 2",
+                        "title": "Withdraw money",
+                        "description": "",
+                    },
                 ],
-            },
-        },
+            }
+        ],
+    },
+}
+
+messenger.sendButton(
+        button,
+        "263757xxxxxx"
 )
 ```
 
@@ -172,7 +177,7 @@ messenger.sendButton(
 Here how to send a pre-approved template message;
 
 ```javascript
-messenger.sendTemplate("hello_world", "255757xxxxxx")
+messenger.sendTemplate("hello_world", "263757xxxxxx")
 ```
 
 ## Sending a Template Messages with Components
@@ -183,14 +188,14 @@ let components = [
   // Your components here
 ]
 
-messenger.sendTemplate("hello_world", "255757xxxxxx", components)
+messenger.sendTemplate("hello_world", "263757xxxxxx", components)
 ```
 
 For moreabout components: https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-message-templates
 
 ## Webhook
 
-Webhooks are useful incase you're wondering how to respond to incoming message send by user, but I have created a [starter webhook](https://github.com/JS-Hub-ZW/heyooh/blob/main/src/hook.ts) which you can then customize it according to your own plans.
+Webhooks are useful incase you're wondering how to respond to incoming message send by user, but I have created a [starter webhook](https://github.com/phoscoder/whatsapp-cloud-api/blob/main/src/hook.ts) which you can then customize it according to your own plans.
 
 To learn more about webhook and how to configure in your Facebook developer dashboard please [have a look here](https://developers.facebook.com/docs/whatsapp/cloud-api/guides/set-up-webhooks).
 
@@ -242,24 +247,31 @@ This is the structure of the notifications that you will recieve from Whatsapp w
 
 
 
-### Recieving notifications
-To receive notifications such as customer messages, alerts and other callbacks from WhatsApp
+### Recieving notifications (Method #1 > Inbuilt server)
+To receive notifications such as customer messages, alerts and other callbacks from WhatsApp you can start a server that listens and handles notifications from Whatsapp
 
 ```javascript
-import Server from './classes/server'
+import { Server } from '@phoscoder/whatsapp-cloud-api'
 import 'dotenv/config'
 
-let notificationServer = new Server(
+let notificationsServer = new Server(
+    process.env.VERIFY_TOKEN,
     process.env.LISTEN_PORT,
-    process.env.VERIFY_TOKEN
 )
 
 let app = notificationsServer.start(async (rawData ,processedPayload) => {
   // Do your stuff here
-  let messages = processedPayload.get_messages()
-  let metadata = processedPayload.get_contacts()
-  let contacts = processedPayload.get_contacts()
-  let status = processedPayload.get_statuses()
+  
+  if (processedPayload.type == "messages") {
+    let messages = processedPayload.getMessages()
+    let metadata = processedPayload.getMetadata()
+    let contacts = processedPayload.getContacts()
+  
+  if (processedPayload.type == "contacts") {
+    let contacts = processedPayload.getContacts()
+  
+  if (processedPayload.type == "status") {
+    let status = processedPayload.getStatuses()
 
   // Do other stuff here
 })
@@ -268,28 +280,74 @@ let app = notificationsServer.start(async (rawData ,processedPayload) => {
 `rawData` -> This is raw data straight from WhatsApp
 `processedPayload` -> This is an object of `ProcessPayload` it gives access to the raw_data plus helper methods
 
-**Note:** Beginners should work more with processed since it saves you time and minimizes errors
+> [!NOTE] 
+> Beginners should work more with processed since it saves you time and minimizes errors
 
-**Tip:** You can refactor it to look more presentable
+**Tip:** You can refactor it to look more presentable:
 
 ```javascript
 import handleNotifications from 'path/to/file'
 
 let app = notificationServer.start(handleNotifications)
 ```
+### Recieving notifications (Method #2 > Existing server)
+To receive notifications such as customer messages, alerts and other callbacks from WhatsApp on an existing server, take the following steps
+
+```javascript
+import { 
+  Server, 
+  NotificationPayload, 
+  ProcessPayload, 
+  VerifyWebhookToken } from '@phoscoder/whatsapp-cloud-api'
+
+import dotenv from 'dotenv'
+dotenv.config()
+
+const VERIFY_TOKEN = process.env.VERIFY_TOKEN
+
+ // For webhook verification
+ app.get("/", async (req: Request, res:Response) => {      
+      const server = new Server(VERIFY_TOKEN)
+      await verifyWebhookToken(req.query as Record<string, any>)
+  })
+
+  // For incoming notifications
+  app.post("/", async (req: Request, res:Response) => {
+      let data: NotificationPayload = req.body
+  
+      let processedPayload = new ProcessPayload(data)
+      
+      // Do your stuff here
+      if (processedPayload.type == "messages") {
+        let messages = processedPayload.getMessages()
+        let metadata = processedPayload.getMetadata()
+        let contacts = processedPayload.getContacts()
+      
+      if (processedPayload.type == "contacts") {
+        let contacts = processedPayload.getContacts()
+      
+      if (processedPayload.type == "status") {
+        let status = processedPayload.getStatuses()
+
+      return res.json("Notification recieved!")
+  })
+```
+
 
 ### Getting media links 
 
 To retrive actual media link
 
 ```javascript
-let message = processedPayload.get_messages()[0]
+let message = processedPayload.getMessages()[0]
 let mediaData = await messenger.getMedia(message.image.id)
 ```
 
-**NOTE:** The URL you get is only available for a 5 minutes, so you may need to download it and store it somewhere, or use it as quick as possible
+> [!NOTE]
+> The URL you get is only available for a 5 minutes, so you may need to download it and store it somewhere, or use it as quick as possible
 
-For more info check [Notification Payload refernce](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/components) and [Notification Payload Examples](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples)
+
+For more info check [Notification Payload Reference](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/components) and [Notification Payload Examples](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples)
 
 ## Issues
 
@@ -304,5 +362,3 @@ This is an opensource project under ```MIT License``` so any one is welcome to c
 1. [kalebu](https://github.com/Kalebu)
 2. [takunda](https://github.com/takumade)
 3. Contribute to get added here
-
-</samp>
