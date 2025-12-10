@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+
+# Source files (publish only dist/)
+src/
+
+# Tests
+__tests__/
+*.test.ts
+*.test.js
+*.spec.ts
+*.spec.js
+
+# Configuration files
+tsconfig.json
+jest.config.js
+.env
+.env.*
+
+# Development files
+config/
+
+# Examples (optional - remove this line if you want to include examples)
+examples/
+
+# Git files
+.git/
+.gitignore
+
+# Documentation (optional - keep if you want these in the package)
+# CODE_OF_CONDUCT.md
+# CONTRIBUTING.md
+
+# Build artifacts that shouldn't be published
+*.tsbuildinfo
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
