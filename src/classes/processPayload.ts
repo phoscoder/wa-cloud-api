@@ -6,13 +6,13 @@ class ProcessPayload{
 
     constructor(data:NotificationPayload){
         this.data = data 
-        this.get_type()
+        this.getType()
     }
 
-    get_value = () => this.data.entry[0].changes[0].value
+    getValue = () => this.data.entry[0].changes[0].value
 
-    get_type(){
-        let value_keys = Object.keys(this.get_value())
+    getType(){
+        let value_keys = Object.keys(this.getValue())
 
         if (value_keys.includes("messages")){
             this.type = "messages"
@@ -30,7 +30,7 @@ class ProcessPayload{
 
     }
 
-    process_message(m:Message){
+    processMessage(m:Message){
 
         let possible_media = [
             "image",
@@ -39,7 +39,7 @@ class ProcessPayload{
             "document",
             "sticker"
         ]
-        
+
         let message_keys = Object.keys(m)
         if (message_keys.includes("location")){
             m.type = "location"
@@ -48,7 +48,7 @@ class ProcessPayload{
         if (message_keys.includes("contacts")){
             m.type = "contacts"
         }
-        
+
         if (message_keys.includes("referral")){
             m.type = "referral"
         }
@@ -65,30 +65,30 @@ class ProcessPayload{
         return m
     }
 
-    get_messages(){
+    getMessages(){
         let raw_messages =  this.data.entry[0].changes[0].value.messages
 
         let messages:Message[] = raw_messages.map(m => {
-            let processed_message = this.process_message(m)
+            let processed_message = this.processMessage(m)
             return processed_message
         })
 
         return messages
     }
 
-    get_statuses(){
+    getStatuses(){
         return this.data.entry[0].changes[0].value?.statuses
     }
 
-    get_contacts(){
+    getContacts(){
         return this.data.entry[0].changes[0].value?.contacts
     }
 
-    get_errors(){
+    getErrors(){
         return this.data.entry[0].changes[0].value?.errors
     }
 
-    get_metadata(){
+    getMetadata(){
         return this.data.entry[0].changes[0].value?.metadata
     }
 }
