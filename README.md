@@ -7,7 +7,7 @@
 ![npm](https://img.shields.io/npm/dw/@phoscoder/whatsapp-cloud-api)
 
 
-Unofficial javascript wrapper to [WhatsApp Cloud API](https://developers.facebook.com/docs/whatsapp/cloud-api). It was first ported from [heyoo](https://github.com/Neurotech-HQ/heyoo) but now I will be maintaining it and adding more features.
+Unofficial Javascript wrapper to [WhatsApp Cloud API](https://developers.facebook.com/docs/whatsapp/cloud-api). It was first ported from [heyoo](https://github.com/Neurotech-HQ/heyoo) but now I will be maintaining it and adding more features.
 
 ## Features supported
 
@@ -247,24 +247,31 @@ This is the structure of the notifications that you will recieve from Whatsapp w
 
 
 
-### Recieving notifications (Method #1)
+### Recieving notifications (Method #1 > Inbuilt server)
 To receive notifications such as customer messages, alerts and other callbacks from WhatsApp you can start a server that listens and handles notifications from Whatsapp
 
 ```javascript
-import Server from './classes/server'
+import { Server } from '@phoscoder/whatsapp-cloud-api'
 import 'dotenv/config'
 
-let notificationServer = new Server(
+let notificationsServer = new Server(
+    process.env.VERIFY_TOKEN,
     process.env.LISTEN_PORT,
-    process.env.VERIFY_TOKEN
 )
 
 let app = notificationsServer.start(async (rawData ,processedPayload) => {
   // Do your stuff here
-  let messages = processedPayload.getMessages()
-  let metadata = processedPayload.getContacts()
-  let contacts = processedPayload.getContacts()
-  let status = processedPayload.getStatuses()
+  
+  if (processedPayload.type == "messages") {
+    let messages = processedPayload.getMessages()
+    let metadata = processedPayload.getMetadata()
+    let contacts = processedPayload.getContacts()
+  
+  if (processedPayload.type == "contacts") {
+    let contacts = processedPayload.getContacts()
+  
+  if (processedPayload.type == "status") {
+    let status = processedPayload.getStatuses()
 
   // Do other stuff here
 })
@@ -275,7 +282,7 @@ let app = notificationsServer.start(async (rawData ,processedPayload) => {
 
 **Note:** Beginners should work more with processed since it saves you time and minimizes errors
 
-**Tip:** You can refactor it to look more presentable
+**Tip:** You can refactor it to look more presentable:
 
 ```javascript
 import handleNotifications from 'path/to/file'
@@ -286,20 +293,40 @@ let app = notificationServer.start(handleNotifications)
 To receive notifications such as customer messages, alerts and other callbacks from WhatsApp on an existing server, take the following steps
 
 ```javascript
-import Server from './classes/server'
+import { 
+  Server, 
+  NotificationPayload, 
+  ProcessPayload, 
+  VerifyWebhookToken } from '@phoscoder/whatsapp-cloud-api'
 
+import dotenv from 'dotenv'
+dotenv.config()
 
+const VERIFY_TOKEN = process.env.VERIFY_TOKEN
+
+ // For webhook verification
+ app.get("/", async (req: Request, res:Response) => {      
+      const server = new Server(VERIFY_TOKEN)
+      await verifyWebhookToken(req.query as Record<string, any>)
+  })
+
+  // For incoming notifications
   app.post("/", async (req: Request, res:Response) => {
       let data: NotificationPayload = req.body
   
       let processedPayload = new ProcessPayload(data)
-      let resp = await notificationCallback(data, payload)
       
       // Do your stuff here
-      let messages = processedPayload.getMessages()
-      let metadata = processedPayload.getContacts()
-      let contacts = processedPayload.getContacts()
-      let status = processedPayload.getStatuses()
+      if (processedPayload.type == "messages") {
+        let messages = processedPayload.getMessages()
+        let metadata = processedPayload.getMetadata()
+        let contacts = processedPayload.getContacts()
+      
+      if (processedPayload.type == "contacts") {
+        let contacts = processedPayload.getContacts()
+      
+      if (processedPayload.type == "status") {
+        let status = processedPayload.getStatuses()
 
       return res.json("Notification recieved!")
   })
@@ -315,7 +342,9 @@ let message = processedPayload.getMessages()[0]
 let mediaData = await messenger.getMedia(message.image.id)
 ```
 
-**NOTE:** The URL you get is only available for a 5 minutes, so you may need to download it and store it somewhere, or use it as quick as possible
+> [!NOTE]
+> The URL you get is only available for a 5 minutes, so you may need to download it and store it somewhere, or use it as quick as possible
+
 
 For more info check [Notification Payload refernce](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/components) and [Notification Payload Examples](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples)
 
