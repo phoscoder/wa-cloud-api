@@ -1,5 +1,5 @@
 
-# [Whatsapp Cloud API](https://npmjs.com/package/@phoscoder/whatsapp-cloud-api)
+# <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="30" height="30"> [Whatsapp Cloud API](https://npmjs.com/package/@phoscoder/whatsapp-cloud-api)
 
 [![Made in Zimbabwe🇿🇼](https://img.shields.io/badge/ported%20in-zimbabwe%20%F0%9F%87%BF%F0%9F%87%BC-blue)](https://github.com/phoscoder)
 ![NPM](https://img.shields.io/npm/l/@phoscoder/whatsapp-cloud-api)
@@ -195,7 +195,7 @@ For moreabout components: https://developers.facebook.com/docs/whatsapp/cloud-ap
 
 ## Webhook
 
-Webhooks are useful incase you're wondering how to respond to incoming message send by user, but I have created a [starter webhook](https://github.com/JS-Hub-ZW/heyooh/blob/main/src/hook.ts) which you can then customize it according to your own plans.
+Webhooks are useful incase you're wondering how to respond to incoming message send by user, but I have created a [starter webhook](https://github.com/phoscoder/whatsapp-cloud-api/blob/main/src/hook.ts) which you can then customize it according to your own plans.
 
 To learn more about webhook and how to configure in your Facebook developer dashboard please [have a look here](https://developers.facebook.com/docs/whatsapp/cloud-api/guides/set-up-webhooks).
 
@@ -280,7 +280,8 @@ let app = notificationsServer.start(async (rawData ,processedPayload) => {
 `rawData` -> This is raw data straight from WhatsApp
 `processedPayload` -> This is an object of `ProcessPayload` it gives access to the raw_data plus helper methods
 
-**Note:** Beginners should work more with processed since it saves you time and minimizes errors
+> [!NOTE] 
+> Beginners should work more with processed since it saves you time and minimizes errors
 
 **Tip:** You can refactor it to look more presentable:
 
@@ -346,7 +347,7 @@ let mediaData = await messenger.getMedia(message.image.id)
 > The URL you get is only available for a 5 minutes, so you may need to download it and store it somewhere, or use it as quick as possible
 
 
-For more info check [Notification Payload refernce](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/components) and [Notification Payload Examples](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples)
+For more info check [Notification Payload Reference](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/components) and [Notification Payload Examples](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples)
 
 ## Issues
 
@@ -361,5 +362,3 @@ This is an opensource project under ```MIT License``` so any one is welcome to c
 1. [kalebu](https://github.com/Kalebu)
 2. [takunda](https://github.com/takumade)
 3. Contribute to get added here
-
-</samp>
