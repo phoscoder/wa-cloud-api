@@ -9,7 +9,7 @@ class Server {
     port:number | string
     verifyToken:string
 
-    constructor(port:number|string, verifyToken:string){
+    constructor( verifyToken:string, port:number|string=6000){
         this.port = port
         this.verifyToken = verifyToken
     }
@@ -38,7 +38,7 @@ class Server {
     }
 
     handleVerification = (req: Request, res:Response) => {
-        // console.log("Request Data: ", req.query)
+        console.log("Request Data: ", req.query)
     
         // Handle Verification
         if (req.query["hub.verify_token"]){
@@ -46,13 +46,31 @@ class Server {
             console.log("Hub: ", hub)
             let verify_token = req.query["hub.verify_token"]
     
-            if (verify_token == process.env.VERIFY_TOKEN){
+            if (verify_token == this.verifyToken){
               return res.send(req.query["hub.challenge"])
             }
             return res.send("Invalid verification token")
         }
     
         return res.send("This is a default response")
+    }
+    
+    verifyWebhookToken = (query: Record<string, any>): String => {
+        // console.log("Request Data: ", query)
+    
+        // Handle Verification
+        if (query["hub.verify_token"]){
+          
+            console.log("Hub: ", query)
+            let verify_token = query["hub.verify_token"]
+    
+            if (verify_token == this.verifyToken){
+              return query["hub.challenge"]
+            }
+            return "Invalid verification token"
+        }
+    
+        return "This is a default response"
     }
 
 }
