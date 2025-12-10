@@ -62,7 +62,7 @@ Once you have authenticated your app, now you can start using the above mentione
 Here how to send messages;
 
 ```javscript
-messenger.sendMessage('Your message ', 'Mobile eg: 255757xxxxx')
+messenger.sendMessage('Your message ', 'Mobile eg: 263757xxxxx')
 ```
 
 ### Example
@@ -70,7 +70,7 @@ messenger.sendMessage('Your message ', 'Mobile eg: 255757xxxxx')
 Here an example
 
 ```javascript
-messenger.sendMessage('Hi there just testiing', '255757902132')
+messenger.sendMessage('Hi there just testiing', '263757902132')
 ```
 
 ## Sending Images
@@ -83,8 +83,8 @@ Here an example;
 
 ```javascript
 messenger.sendImage(
-        image="https://i.imgur.com/Fh7XVYY.jpeg",
-        recipient_id="255757xxxxxx",
+        "https://i.imgur.com/Fh7XVYY.jpeg",
+        "263757xxxxxx",
 )
 ```
 
@@ -95,8 +95,8 @@ Here an example;
 ```javascript
 
 messenger.sendVideo(
-        video="https://www.youtube.com/watch?v=K4TOrB7at0Y",
-        recipient_id="255757xxxxxx",
+        "https://www.youtube.com/watch?v=K4TOrB7at0Y",
+        "263757xxxxxx",
 )
 ```
 
@@ -106,8 +106,8 @@ Here an example;
 
 ```javascript
 messenger.sendAudio(
-        audio="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-        recipient_id="255757xxxxxx",
+        "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+        "263757xxxxxx",
 )
 ```
 
@@ -117,8 +117,10 @@ Here an example;
 
 ```javascript
 messenger.sendDocument(
-        document="http://www.africau.edu/images/default/sample.pdf",
-        recipient_id="255757xxxxxx",
+        "http://www.africau.edu/images/default/sample.pdf",
+        "263757xxxxxx",      // Recipient ID
+        "sample.pdf",        // File Name
+        "Sample Document"    // Caption
 )
 ```
 
@@ -132,7 +134,7 @@ messenger.sendLocation(
         long=103.85,
         name="Singapore",
         address="Singapore",
-        recipient_id="255757xxxxxx",
+        recipient_id="263757xxxxxx",
     )
 ```
 
@@ -141,29 +143,32 @@ messenger.sendLocation(
 Here an example;
 
 ```javascript
-messenger.sendButton(
-        recipient_id="255757xxxxxx",
-        button={
-            "header": "Header Testing",
-            "body": "Body Testing",
-            "footer": "Footer Testing",
-            "action": {
-                "button": "Button Testing",
-                "sections": [
+
+const button = {
+    "header": "Header Testing",
+    "body": "Body Testing",
+    "footer": "Footer Testing",
+    "action": {
+        "button": "Button Testing",
+        "sections": [
+            {
+                "title": "iBank",
+                "rows": [
+                    {"id": "row 1", "title": "Send Money", "description": ""},
                     {
-                        "title": "iBank",
-                        "rows": [
-                            {"id": "row 1", "title": "Send Money", "description": ""},
-                            {
-                                "id": "row 2",
-                                "title": "Withdraw money",
-                                "description": "",
-                            },
-                        ],
-                    }
+                        "id": "row 2",
+                        "title": "Withdraw money",
+                        "description": "",
+                    },
                 ],
-            },
-        },
+            }
+        ],
+    },
+}
+
+messenger.sendButton(
+        button,
+        "263757xxxxxx"
 )
 ```
 
@@ -172,7 +177,7 @@ messenger.sendButton(
 Here how to send a pre-approved template message;
 
 ```javascript
-messenger.sendTemplate("hello_world", "255757xxxxxx")
+messenger.sendTemplate("hello_world", "263757xxxxxx")
 ```
 
 ## Sending a Template Messages with Components
@@ -183,7 +188,7 @@ let components = [
   // Your components here
 ]
 
-messenger.sendTemplate("hello_world", "255757xxxxxx", components)
+messenger.sendTemplate("hello_world", "263757xxxxxx", components)
 ```
 
 For moreabout components: https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-message-templates
