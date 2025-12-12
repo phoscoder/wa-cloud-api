@@ -11,7 +11,7 @@ const PHONE_NUMBER_ID = process.env.PHONE_NUMBER_ID;
 const RECIPIENT = process.env.RECIPIENT;
 
 // Initialize the WhatsApp messenger
-const messenger = new WhatsApp(TOKEN, PHONE_NUMBER_ID);
+const messenger = new WhatsApp(TOKEN, PHONE_NUMBER_ID, true);
 
 // Example 1: Send a simple text message
 async function sendTextMessage() {
@@ -132,7 +132,7 @@ async function sendTemplate() {
 (async () => {
   console.log("WhatsApp Cloud API Examples\n");
 
-  // await sendTextMessage();
+  await sendTextMessage();
   // await sendImage();
   // await sendVideo();
   // await sendDocument();

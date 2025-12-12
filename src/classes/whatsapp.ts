@@ -5,7 +5,12 @@ const VERSION = "v24.0";
 
 
 
-
+enum httpMethod {
+  POST = "post",
+  GET = "get",
+  PUT = "put",
+  DELETE = "delete",
+}
 
 
 export default class WhatsApp {
@@ -13,15 +18,53 @@ export default class WhatsApp {
   token: string;
   headers: { "Content-Type": string; Authorization: string };
   url: string;
+  debug: boolean;
 
-  constructor(token: string = "", phone_number_id: string = "") {
+  constructor(token: string = "", phone_number_id: string = "", debug: boolean = false) {
     this.token = token;
     this.phone_number_id = phone_number_id;
     this.url = `https://graph.facebook.com/${VERSION}/${phone_number_id}/messages`;
+    this.debug = debug;
     this.headers = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
+  }
+  
+  async networkResponse(method: httpMethod, data: Record<string, any> | undefined, customUrl: string | undefined=undefined){
+    try{
+      let r 
+      
+      if (method == httpMethod.POST){  
+          r = await axios.post(customUrl || this.url, data, {
+            headers: this.headers,
+          });
+      }else if (method == httpMethod.GET){
+          r = await axios.get(customUrl || this.url, {
+            headers: this.headers,
+          });
+      }else if (method == httpMethod.PUT){
+          r = await axios.put(customUrl || this.url, data, {
+            headers: this.headers,
+          });
+      }else if (method == httpMethod.DELETE){
+          r = await axios.delete(customUrl || this.url, {
+            headers: this.headers,
+          });
+      }else{
+        throw new Error(`Invalid method: ${method}`);
+      }
+      
+      if (this.debug){
+        return r;
+      }
+      
+      
+      return r.data;
+    }catch(error){
+      console.error(error);
+      throw error;
+    }
   }
 
   async sendMessage(
@@ -37,12 +80,8 @@ export default class WhatsApp {
       type: "text",
       text: { preview_url: preview_url, body: message },
     };
-
-    let r = await axios.post(this.url, data, {
-      headers: this.headers,
-    });
-
-    return r;
+    
+    return await this.networkResponse(httpMethod.POST, data);
   }
 
   async sendTemplate(
@@ -61,10 +100,7 @@ export default class WhatsApp {
         components: [...components],
       },
     };
-    let r = await axios.post(this.url, data, {
-      headers: this.headers,
-    });
-    return r;
+    return await this.networkResponse(httpMethod.POST, data);
   }
 
   async sendLocation(
@@ -85,10 +121,8 @@ export default class WhatsApp {
         address: address,
       },
     };
-    let r = await axios.post(this.url, data, {
-      headers: this.headers,
-    });
-    return r;
+   
+    return await this.networkResponse(httpMethod.POST, data);
   }
 
   async sendImage(
@@ -117,10 +151,7 @@ export default class WhatsApp {
       };
     }
 
-    let r = await axios.post(this.url, data, {
-      headers: this.headers,
-    });
-    return r;
+    return await this.networkResponse(httpMethod.POST, data);
   }
 
   async sendAudio(audio: any, recipient_id: any, link = true) {
@@ -141,10 +172,7 @@ export default class WhatsApp {
       };
     }
 
-    let r = await axios.post(this.url, data, {
-      headers: this.headers,
-    });
-    return r;
+    return await this.networkResponse(httpMethod.POST, data);
   }
 
   async sendVideo(video: any, recipient_id: any, caption = null, link = true) {
@@ -164,10 +192,7 @@ export default class WhatsApp {
         video: { id: video, caption: caption },
       };
     }
-    let r = await axios.post(this.url, data, {
-      headers: this.headers,
-    });
-    return r;
+    return await this.networkResponse(httpMethod.POST, data);
   }
 
   async sendDocument(
@@ -194,10 +219,7 @@ export default class WhatsApp {
       };
     }
 
-    let r = await axios.post(this.url, data, {
-      headers: this.headers,
-    });
-    return r;
+    return await this.networkResponse(httpMethod.POST, data);
   }
 
   createButton(button: Record<string, any>) {
@@ -218,29 +240,19 @@ export default class WhatsApp {
       type: "interactive",
       interactive: this.createButton(button),
     };
-    let r = await axios.post(this.url, data, {
-      headers: this.headers,
-    });
-    return r;
+    return await this.networkResponse(httpMethod.POST, data);
   }
 
   async getMedia(id: string | number) {
-    let media_url = `https://graph.facebook.com/${VERSION}/${id}`;
+    let mediaUrl = `https://graph.facebook.com/${VERSION}/${id}`;
 
-    let r = await axios.get(media_url, {
-      headers: this.headers,
-    });
-
-    return r;
+    
+    return await this.networkResponse(httpMethod.GET, undefined, mediaUrl);
   }
 
   async deleteMedia(id: string | number) {
-    let media_url = `https://graph.facebook.com/${VERSION}/${id}`;
+    let mediaUrl = `https://graph.facebook.com/${VERSION}/${id}`;
 
-    let r = await axios.delete(media_url, {
-      headers: this.headers,
-    });
-
-    return r;
+    return await this.networkResponse(httpMethod.DELETE, undefined, mediaUrl);
   }
 }
