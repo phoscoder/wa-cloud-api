@@ -7,3 +7,9 @@ module.exports = {
     ProcessPayload,
     Server
 }
+
+export {
+    WhatsApp,
+    ProcessPayload,
+    Server
+}
