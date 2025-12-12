@@ -48,11 +48,11 @@ Once you're follow the above procedures, now you're ready to start hacking with 
 
 ## Authentication
 
-Here how you authenticate your application, you need to specofy two things the ```TOKEN``` and ```phone_number_id``` of your test number
+Here how you authenticate your application, you need to specofy two things the ```<token>``` and ```<phone_number_id>``` of your test number
 
 ```javascript
 import {WhatsApp} from '@phoscoder/whatsapp-cloud-api'
-let messenger = new WhatsApp('TOKEN',  phone_number_id='104xxxxxx')
+let messenger = new WhatsApp('<token>',  phone_number_id='104xxxxxx')
 ```
 
 Once you have authenticated your app, now you can start using the above mentioned feature as shown above;
@@ -348,6 +348,25 @@ let mediaData = await messenger.getMedia(message.image.id)
 
 
 For more info check [Notification Payload Reference](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/components) and [Notification Payload Examples](https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples)
+
+## Debugging
+
+In cases where you want to see the full response and all its data set debug to true like this
+
+```js
+import { WhatsApp } from '@phoscoder/whatsapp_cloud_api'
+...
+...
+...
+const client = new WhatsApp("<token>", "<phone_number_id>", true)
+```
+
+OR this 
+
+```js 
+client.debug = true 
+```
+
 
 ## Issues
 
