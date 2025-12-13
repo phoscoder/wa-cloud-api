@@ -55,7 +55,7 @@ class Server {
         return res.send("This is a default response")
     }
     
-    verifyWebhookToken = (query: Record<string, any>): String => {
+    verifyWebhookToken = (query: Record<string, any>): string => {
         // console.log("Request Data: ", query)
     
         // Handle Verification
