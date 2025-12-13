@@ -308,7 +308,8 @@ const VERIFY_TOKEN = process.env.VERIFY_TOKEN
  // For webhook verification
  app.get("/", async (req: Request, res:Response) => {      
       const server = new Server(VERIFY_TOKEN)
-      await verifyWebhookToken(req.query as Record<string, any>)
+      let res = server.verifyWebhookToken(req.query as Record<string, any>)
+      res.send(res)
   })
 
   // For incoming notifications
