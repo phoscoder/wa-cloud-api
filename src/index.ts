@@ -6,10 +6,7 @@ import { NotificationPayload } from "./types/event"
 module.exports = {
     WhatsApp,
     ProcessPayload,
-    Server,
-    
-    // @ts-ignore
-    NotificationPayload
+    Server
 }
 
 export {
