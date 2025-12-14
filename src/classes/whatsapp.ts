@@ -31,6 +31,10 @@ export default class WhatsApp {
     };
   }
   
+  buildUrl(path: string) {
+    return `https://graph.facebook.com/${VERSION}/${this.phone_number_id}/${path}`;
+  }
+  
   async networkResponse(method: httpMethod, data: Record<string, any> | undefined, customUrl: string | undefined=undefined){
     try{
       let r 
@@ -82,6 +86,13 @@ export default class WhatsApp {
     };
     
     return await this.networkResponse(httpMethod.POST, data);
+  }
+  
+  async getTemplates() {
+
+    const customURL = this.buildUrl("message_templates");
+    let templates =  await this.networkResponse(httpMethod.GET, undefined, customURL);
+    return templates.data || templates
   }
 
   async sendTemplate(
