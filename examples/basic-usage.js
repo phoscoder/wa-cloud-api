@@ -127,6 +127,15 @@ async function sendTemplate() {
   }
 }
 
+async function getTemplates() {
+  try {
+    const response = await messenger.getTemplates();
+    console.log("Templates retrieved successfully:", response);
+  } catch (error) {
+    console.error("Error retrieving templates:", error);
+  }
+}
+
 // Run examples
 // Uncomment the function you want to test
 (async () => {
@@ -139,6 +148,8 @@ async function sendTemplate() {
   // await sendLocation();
   // await sendButton();
   // await sendTemplate();
+  
+  await getTemplates();
 })();
 
 let notificationServer = new Server(

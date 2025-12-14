@@ -15,14 +15,16 @@ enum httpMethod {
 
 export default class WhatsApp {
   phone_number_id: string;
+  wa_business_account_id: string;
   token: string;
   headers: { "Content-Type": string; Authorization: string };
   url: string;
   debug: boolean;
 
-  constructor(token: string = "", phone_number_id: string = "", debug: boolean = false) {
+  constructor(token: string = "", phone_number_id: string = "", wa_business_account_id: string = "", debug: boolean = false) {
     this.token = token;
     this.phone_number_id = phone_number_id;
+    this.wa_business_account_id = wa_business_account_id;
     this.url = `https://graph.facebook.com/${VERSION}/${phone_number_id}/messages`;
     this.debug = debug;
     this.headers = {
@@ -31,8 +33,8 @@ export default class WhatsApp {
     };
   }
   
-  buildUrl(path: string) {
-    return `https://graph.facebook.com/${VERSION}/${this.phone_number_id}/${path}`;
+  buildUrl(path: string, useBusinessAccountId: boolean = false) {
+    return `https://graph.facebook.com/${VERSION}/${useBusinessAccountId ? this.wa_business_account_id : this.phone_number_id}/${path}`;
   }
   
   async networkResponse(method: httpMethod, data: Record<string, any> | undefined, customUrl: string | undefined=undefined){
@@ -89,7 +91,7 @@ export default class WhatsApp {
   }
   
   async getTemplates() {
-    const customURL = this.buildUrl("message_templates");
+    const customURL = this.buildUrl("message_templates", true);
     let templates =  await this.networkResponse(httpMethod.GET, undefined, customURL);
     return templates.data || templates
   }
