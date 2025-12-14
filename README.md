@@ -135,11 +135,11 @@ Here an example;
 
 ```javascript
 messenger.sendLocation(
-        lat=1.29,
-        long=103.85,
-        name="Singapore",
-        address="Singapore",
-        recipient_id="263757xxxxxx",
+        1.29,            // Latitude
+        103.85,          // Longitude
+        "Singapore",     // Name
+        "Singapore",     // Address
+        "263757xxxxxx",  // Recipient ID
     )
 ```
 
