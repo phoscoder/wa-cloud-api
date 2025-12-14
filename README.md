@@ -16,6 +16,7 @@ Unofficial Javascript wrapper to [WhatsApp Cloud API](https://developers.faceboo
 ✅ Sending location <br>
 ✅ Sending interactive buttons <br>
 ✅ Sending template messages <br>
+✅ Get templates <br>
 
 ## Getting started
 
