@@ -32,7 +32,7 @@ npm install @phoscoder/whatsapp-cloud-api
 
 ## Setting up
 
-To get started using this package, you will need **TOKEN** and **TEST WHATSAPP NUMBER** which you can get by from [Facebook Developer Portal](https://developers.facebook.com/)
+To get started using this package, you will need `**Access Token**`, `**Phone Number ID**` and `**Whatsapp Business Account ID**` which you can get by from [Facebook Developer Portal](https://developers.facebook.com/)
 
 Here are steps to follow for you to get started
 
@@ -42,18 +42,22 @@ Here are steps to follow for you to get started
 4. It will prompt you to enter basic app informations
 5. It will ask you to add products to your app
     a. Add WhatsApp Messenger
-6. Right there you will see a your **TOKEN** and **TEST WHATSAPP NUMBER** and its phone_number_id
+6. Right there you will see a your **Access Token**, **Whatsapp Business Account ID** and **Phone Number ID** and its phone_number_id
 7. Lastly verify the number you will be using for testing on the **To** field.
 
 Once you're follow the above procedures, now you're ready to start hacking with the Wrapper.
 
 ## Authentication
 
-Here how you authenticate your application, you need to specofy two things the ```<token>``` and ```<phone_number_id>``` of your test number
+Here how you authenticate your application, you need to specify two things the `<access token>`, `<phone number id>` and `<whatsapp business account id>` of your test number
 
 ```javascript
 import {WhatsApp} from '@phoscoder/whatsapp-cloud-api'
-let messenger = new WhatsApp('<token>',  phone_number_id='104xxxxxx')
+let messenger = new WhatsApp(
+    '<access token>',  
+    '<phone number id>',
+    '<whatsapp business account id>'
+)
 ```
 
 Once you have authenticated your app, now you can start using the above mentioned feature as shown above;
