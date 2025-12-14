@@ -8,10 +8,11 @@ config();
 // e.g., '255757902132'
 const TOKEN = process.env.TOKEN;
 const PHONE_NUMBER_ID = process.env.PHONE_NUMBER_ID;
+const WABA_ID = process.env.WABA_ID;
 const RECIPIENT = process.env.RECIPIENT;
 
 // Initialize the WhatsApp messenger
-const messenger = new WhatsApp(TOKEN, PHONE_NUMBER_ID, true);
+const messenger = new WhatsApp(TOKEN, PHONE_NUMBER_ID, WABA_ID);
 
 // Example 1: Send a simple text message
 async function sendTextMessage() {
