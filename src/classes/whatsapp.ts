@@ -89,7 +89,6 @@ export default class WhatsApp {
   }
   
   async getTemplates() {
-
     const customURL = this.buildUrl("message_templates");
     let templates =  await this.networkResponse(httpMethod.GET, undefined, customURL);
     return templates.data || templates
