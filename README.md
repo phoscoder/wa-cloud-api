@@ -55,6 +55,7 @@ Here how you authenticate your application, you need to specify two things the `
 ```javascript
 import {WhatsApp} from '@phoscoder/whatsapp-cloud-api'
 let messenger = new WhatsApp(
+    '<app id>'
     '<access token>',  
     '<phone number id>',
     '<whatsapp business account id>'
@@ -453,7 +454,7 @@ import { WhatsApp } from '@phoscoder/whatsapp_cloud_api'
 ...
 ...
 ...
-const client = new WhatsApp("<token>", "<phone_number_id>", true)
+const client = new WhatsApp( "<app id>", "<token>", "<phone_number_id>", true)
 ```
 
 OR this 
