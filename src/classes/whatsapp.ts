@@ -41,17 +41,20 @@ export default class WhatsApp {
   phone_number_id: string;
   wa_business_account_id: string;
   token: string;
+  appId: string;
   headers: { "Content-Type": string; Authorization: string };
   url: string;
   debug: boolean;
 
   constructor(
+    appId: string = "",
     token: string = "",
     phone_number_id: string = "",
     wa_business_account_id: string = "",
     debug: boolean = false,
   ) {
     this.token = token;
+    this.appId = appId;
     this.phone_number_id = phone_number_id;
     this.wa_business_account_id = wa_business_account_id;
     this.url = `https://graph.facebook.com/${VERSION}/${phone_number_id}/messages`;
@@ -116,12 +119,11 @@ export default class WhatsApp {
   }
 
   async startResumableUploadSession(
-    appId: string,
     fileName: string,
     fileLength: number,
     fileType: SupportedResumableMimeType,
   ) {
-    const url = `${this.getResumableUploadBaseUrl()}/${appId}/uploads`;
+    const url = `${this.getResumableUploadBaseUrl()}/${this.appId}/uploads`;
     const params = new URLSearchParams({
       file_name: fileName,
       file_length: String(fileLength),
