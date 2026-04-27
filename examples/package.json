@@ -18,6 +18,8 @@
   "type": "commonjs",
   "dependencies": {
     "@phoscoder/whatsapp-cloud-api": "^1.4.5",
+    "@types/axios": "^0.9.36",
+    "axios": "^1.15.2",
     "dotenv": "^16.4.7"
   }
 }
