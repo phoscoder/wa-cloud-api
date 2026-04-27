@@ -224,7 +224,6 @@ This SDK supports Meta's Resumable Upload flow and returns an uploaded file hand
 
 ```javascript
 const session = await messenger.startResumableUploadSession(
-  "<meta_app_id>",
   "invoice.pdf",
   fileBytes.length,
   "application/pdf"
@@ -269,7 +268,6 @@ const resumed = await messenger.resumeResumableUpload(
 
 ```javascript
 const session = await messenger.startResumableUploadSession(
-  "<meta_app_id>",
   "sample.pdf",
   fileBytes.length,
   "application/pdf"
