@@ -1,9 +1,34 @@
 import axios from "axios";
-import { AudioMessage, DocumentMessage, ImageMessage, VideoMessage } from "../types/general";
+import {
+  AudioMessage,
+  DocumentMessage,
+  ImageMessage,
+  VideoMessage,
+} from "../types/general";
 
 const VERSION = "v24.0";
 
+const RESUMABLE_UPLOAD_VERSION = "v25.0";
 
+type SupportedResumableMimeType =
+  | "application/pdf"
+  | "image/jpeg"
+  | "image/jpg"
+  | "image/png"
+  | "video/mp4";
+
+interface StartUploadSessionResponse {
+  id: string;
+}
+
+interface UploadSessionStatusResponse {
+  id: string;
+  file_offset: string;
+}
+
+interface UploadChunkResponse {
+  h: string;
+}
 
 enum httpMethod {
   POST = "post",
@@ -11,7 +36,6 @@ enum httpMethod {
   PUT = "put",
   DELETE = "delete",
 }
-
 
 export default class WhatsApp {
   phone_number_id: string;
@@ -21,7 +45,12 @@ export default class WhatsApp {
   url: string;
   debug: boolean;
 
-  constructor(token: string = "", phone_number_id: string = "", wa_business_account_id: string = "", debug: boolean = false) {
+  constructor(
+    token: string = "",
+    phone_number_id: string = "",
+    wa_business_account_id: string = "",
+    debug: boolean = false,
+  ) {
     this.token = token;
     this.phone_number_id = phone_number_id;
     this.wa_business_account_id = wa_business_account_id;
@@ -32,45 +61,137 @@ export default class WhatsApp {
       Authorization: `Bearer ${token}`,
     };
   }
-  
+
   buildUrl(path: string, useBusinessAccountId: boolean = false) {
     return `https://graph.facebook.com/${VERSION}/${useBusinessAccountId ? this.wa_business_account_id : this.phone_number_id}/${path}`;
   }
-  
-  async networkResponse(method: httpMethod, data: Record<string, any> | undefined, customUrl: string | undefined=undefined){
-    try{
-      let r 
-      
-      if (method == httpMethod.POST){  
-          r = await axios.post(customUrl || this.url, data, {
-            headers: this.headers,
-          });
-      }else if (method == httpMethod.GET){
-          r = await axios.get(customUrl || this.url, {
-            headers: this.headers,
-          });
-      }else if (method == httpMethod.PUT){
-          r = await axios.put(customUrl || this.url, data, {
-            headers: this.headers,
-          });
-      }else if (method == httpMethod.DELETE){
-          r = await axios.delete(customUrl || this.url, {
-            headers: this.headers,
-          });
-      }else{
+
+  async networkResponse(
+    method: httpMethod,
+    data: Record<string, any> | undefined,
+    customUrl: string | undefined = undefined,
+  ) {
+    try {
+      let r;
+
+      if (method == httpMethod.POST) {
+        r = await axios.post(customUrl || this.url, data, {
+          headers: this.headers,
+        });
+      } else if (method == httpMethod.GET) {
+        r = await axios.get(customUrl || this.url, {
+          headers: this.headers,
+        });
+      } else if (method == httpMethod.PUT) {
+        r = await axios.put(customUrl || this.url, data, {
+          headers: this.headers,
+        });
+      } else if (method == httpMethod.DELETE) {
+        r = await axios.delete(customUrl || this.url, {
+          headers: this.headers,
+        });
+      } else {
         throw new Error(`Invalid method: ${method}`);
       }
-      
-      if (this.debug){
+
+      if (this.debug) {
         return r;
       }
-      
-      
+
       return r.data;
-    }catch(error){
+    } catch (error) {
       console.error(error);
       throw error;
     }
+  }
+
+  getResumableUploadBaseUrl() {
+    return `https://graph.facebook.com/${RESUMABLE_UPLOAD_VERSION}`;
+  }
+
+  normalizeUploadSessionId(uploadSessionId: string) {
+    return uploadSessionId.startsWith("upload:")
+      ? uploadSessionId
+      : `upload:${uploadSessionId}`;
+  }
+
+  async startResumableUploadSession(
+    appId: string,
+    fileName: string,
+    fileLength: number,
+    fileType: SupportedResumableMimeType,
+  ) {
+    const url = `${this.getResumableUploadBaseUrl()}/${appId}/uploads`;
+    const params = new URLSearchParams({
+      file_name: fileName,
+      file_length: String(fileLength),
+      file_type: fileType,
+      access_token: this.token,
+    });
+
+    const response = await axios.post<StartUploadSessionResponse>(
+      `${url}?${params.toString()}`,
+    );
+    return this.debug ? response : response.data;
+  }
+
+  async getResumableUploadSessionStatus(uploadSessionId: string) {
+    const normalizedSessionId = this.normalizeUploadSessionId(uploadSessionId);
+    const url = `${this.getResumableUploadBaseUrl()}/${normalizedSessionId}`;
+
+    const response = await axios.get<UploadSessionStatusResponse>(url, {
+      headers: {
+        Authorization: `OAuth ${this.token}`,
+      },
+    });
+
+    return this.debug ? response : response.data;
+  }
+
+  async uploadResumableChunk(
+    uploadSessionId: string,
+    fileBuffer: Uint8Array,
+    fileOffset: number = 0,
+  ) {
+    const normalizedSessionId = this.normalizeUploadSessionId(uploadSessionId);
+    const url = `${this.getResumableUploadBaseUrl()}/${normalizedSessionId}`;
+
+    const response = await axios.post<UploadChunkResponse>(url, fileBuffer, {
+      headers: {
+        Authorization: `OAuth ${this.token}`,
+        file_offset: String(fileOffset),
+        "Content-Type": "application/octet-stream",
+      },
+      maxBodyLength: Infinity,
+    });
+
+    return this.debug ? response : response.data;
+  }
+
+  async resumeResumableUpload(uploadSessionId: string, fileBuffer: Uint8Array) {
+    const statusResponse =
+      await this.getResumableUploadSessionStatus(uploadSessionId);
+    const status: UploadSessionStatusResponse = this.debug
+      ? (
+          statusResponse as import("axios").AxiosResponse<UploadSessionStatusResponse>
+        ).data
+      : (statusResponse as UploadSessionStatusResponse);
+
+    const offset = Number(status.file_offset || 0);
+
+    if (Number.isNaN(offset) || offset < 0) {
+      throw new Error(
+        `Invalid file_offset received for upload session ${uploadSessionId}: ${status.file_offset}`,
+      );
+    }
+
+    const remainingBuffer =
+      offset > 0 ? fileBuffer.subarray(offset) : fileBuffer;
+    return await this.uploadResumableChunk(
+      uploadSessionId,
+      remainingBuffer,
+      offset,
+    );
   }
 
   async sendMessage(
@@ -86,14 +207,18 @@ export default class WhatsApp {
       type: "text",
       text: { preview_url: preview_url, body: message },
     };
-    
+
     return await this.networkResponse(httpMethod.POST, data);
   }
-  
+
   async getTemplates() {
     const customURL = this.buildUrl("message_templates", true);
-    let templates =  await this.networkResponse(httpMethod.GET, undefined, customURL);
-    return templates.data || templates
+    let templates = await this.networkResponse(
+      httpMethod.GET,
+      undefined,
+      customURL,
+    );
+    return templates.data || templates;
   }
 
   async sendTemplate(
@@ -133,7 +258,7 @@ export default class WhatsApp {
         address: address,
       },
     };
-   
+
     return await this.networkResponse(httpMethod.POST, data);
   }
 
@@ -188,7 +313,7 @@ export default class WhatsApp {
   }
 
   async sendVideo(video: any, recipient_id: any, caption = null, link = true) {
-    let data:VideoMessage;
+    let data: VideoMessage;
     if (link) {
       data = {
         messaging_product: "whatsapp",
@@ -214,7 +339,7 @@ export default class WhatsApp {
     caption = null,
     link = true,
   ) {
-    let data:DocumentMessage;
+    let data: DocumentMessage;
     if (link) {
       data = {
         messaging_product: "whatsapp",
@@ -258,7 +383,6 @@ export default class WhatsApp {
   async getMedia(id: string | number) {
     let mediaUrl = `https://graph.facebook.com/${VERSION}/${id}`;
 
-    
     return await this.networkResponse(httpMethod.GET, undefined, mediaUrl);
   }
 
