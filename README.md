@@ -17,6 +17,7 @@ Unofficial Javascript wrapper to [WhatsApp Cloud API](https://developers.faceboo
 ✅ Sending interactive buttons <br>
 ✅ Sending template messages <br>
 ✅ Get templates <br>
+✅ Resumable API <br>
 
 ## Getting started
 
@@ -197,6 +198,96 @@ messenger.sendTemplate("hello_world", "263757xxxxxx", components)
 ```
 
 For moreabout components: https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-message-templates
+
+
+## Using the Resumable API
+
+This SDK supports Meta's Resumable Upload flow and returns an uploaded file handle (`h`) that you can use in supported WhatsApp Cloud API endpoints.
+
+### Supported file MIME types
+
+- `application/pdf`
+- `image/jpeg`
+- `image/jpg`
+- `image/png`
+- `video/mp4`
+
+### SDK call order
+
+1. Start an upload session using your Meta App ID.
+2. Upload the file bytes starting from offset `0`.
+3. If interrupted, get the current session offset.
+4. Resume upload from the returned offset.
+5. Use the returned handle (`h`) in your send/publish call.
+
+### 1) Start upload session
+
+```javascript
+const session = await messenger.startResumableUploadSession(
+  "<meta_app_id>",
+  "invoice.pdf",
+  fileBytes.length,
+  "application/pdf"
+)
+
+// session.id => "upload:<UPLOAD_SESSION_ID>"
+```
+
+### 2) Upload from offset 0
+
+```javascript
+const result = await messenger.uploadResumableChunk(
+  session.id,
+  fileBytes,
+  0
+)
+
+// result.h => uploaded file handle
+const fileHandle = result.h
+```
+
+### 3) Check status when interrupted
+
+```javascript
+const status = await messenger.getResumableUploadSessionStatus(session.id)
+
+// status.file_offset => where to continue from
+```
+
+### 4) Resume from returned offset
+
+```javascript
+const resumed = await messenger.resumeResumableUpload(
+  session.id,
+  fileBytes
+)
+
+// resumed.h => uploaded file handle after completion
+```
+
+### End-to-end example
+
+```javascript
+const session = await messenger.startResumableUploadSession(
+  "<meta_app_id>",
+  "sample.pdf",
+  fileBytes.length,
+  "application/pdf"
+)
+
+let uploadedHandle
+
+try {
+  const uploaded = await messenger.uploadResumableChunk(session.id, fileBytes, 0)
+  uploadedHandle = uploaded.h
+} catch (err) {
+  // If interrupted, resume from server-provided offset
+  const resumed = await messenger.resumeResumableUpload(session.id, fileBytes)
+  uploadedHandle = resumed.h
+}
+
+// Use uploadedHandle with endpoints that accept uploaded file handles
+```
 
 ## Webhook
 
