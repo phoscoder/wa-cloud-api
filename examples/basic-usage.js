@@ -12,7 +12,7 @@ const WABA_ID = process.env.WABA_ID;
 const RECIPIENT = process.env.RECIPIENT;
 
 // Initialize the WhatsApp messenger
-const messenger = new WhatsApp(TOKEN, PHONE_NUMBER_ID, WABA_ID);
+const messenger = new WhatsApp(APP_ID, TOKEN, PHONE_NUMBER_ID, WABA_ID);
 
 // Example 1: Send a simple text message
 async function sendTextMessage() {
