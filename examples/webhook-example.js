@@ -7,6 +7,7 @@ const Server =
 require("dotenv").config();
 
 // Configuration
+const APP_ID = process.env.APP_ID || "YOUR APP ID HERE"
 const TOKEN = process.env.WHATSAPP_TOKEN || "YOUR_ACCESS_TOKEN_HERE";
 const PHONE_NUMBER_ID =
   process.env.PHONE_NUMBER_ID || "YOUR_PHONE_NUMBER_ID_HERE";
@@ -14,7 +15,7 @@ const VERIFY_TOKEN = process.env.VERIFY_TOKEN || "your_verify_token";
 const LISTEN_PORT = process.env.LISTEN_PORT || 3000;
 
 // Initialize WhatsApp messenger for sending responses
-const messenger = new WhatsApp(TOKEN, PHONE_NUMBER_ID);
+const messenger = new WhatsApp(APP_ID, TOKEN, PHONE_NUMBER_ID);
 
 // Initialize notification server
 const notificationServer = new Server(LISTEN_PORT, VERIFY_TOKEN);

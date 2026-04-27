@@ -1,7 +1,7 @@
 import WhatsApp from "../src/classes/whatsapp";
 import "dotenv/config";
 
-let messenger = new WhatsApp(process.env.TOKEN, process.env.PHONE_NUMBER_ID);
+let messenger = new WhatsApp(process.env.APP_ID, process.env.TOKEN, process.env.PHONE_NUMBER_ID);
 let test_number = process.env.TEST_NUMBER;
 
 describe("Test Messages", () => {
